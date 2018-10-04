@@ -31,4 +31,6 @@ COPY --chown=nobody:nobody --from=builder /go/src/github.com/hyperledger/fabric/
 
 VOLUME ["/var/hyperledger/production"]
 
+EXPOSE 7051
+
 CMD ["peer","node","start"]
