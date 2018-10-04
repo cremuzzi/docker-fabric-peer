@@ -10,7 +10,8 @@ RUN apk add --no-cache --virtual .build-deps \
     && rm fabric-1.2.1.tar.gz \
     && mv fabric-1.2.1 fabric \
     && cd fabric/peer \
-    && go install 
+    && go install \
+    && apk del .build-deps
 
 FROM alpine:3.8
 
