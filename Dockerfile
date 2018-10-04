@@ -19,8 +19,13 @@ LABEL version="1.2.1"
 
 ENV FABRIC_CFG_PATH=/etc/hyperledger/fabric
 
-RUN mkdir -p /var/hyperledger/production $FABRIC_CFG_PATH
+RUN mkdir -p /var/hyperledger/production $FABRIC_CFG_PATH \
+    && chown nobody:nobody /var/hyperledger/production \
+    && chown nobody:nobody $FABRIC_CFG_PATH
+
+USER nobody
 
 COPY --chown=nobody:nobody --from=builder /go/bin/peer /usr/local/bin/peer 
+COPY --chown=nobody:nobody --from=builder /go/src/github.com/hyperledger/fabric/sampleconfig/ $FABRIC_CFG_PATH
 
 CMD ["peer","node","start"]
