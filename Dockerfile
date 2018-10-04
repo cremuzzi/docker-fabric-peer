@@ -29,6 +29,6 @@ USER nobody
 COPY --chown=nobody:nobody --from=builder /go/bin/peer /usr/local/bin/peer 
 COPY --chown=nobody:nobody --from=builder /go/src/github.com/hyperledger/fabric/sampleconfig/ $FABRIC_CFG_PATH
 
-VOLUME /var/hyperledger/production
+VOLUME ["/var/hyperledger/production"]
 
 CMD ["peer","node","start"]
