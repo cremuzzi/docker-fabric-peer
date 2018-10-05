@@ -5,18 +5,18 @@ WORKDIR /go/src/github.com/hyperledger/
 RUN apk add --no-cache --virtual .build-deps \
         build-base \
         curl \
-    && curl -fsL https://github.com/hyperledger/fabric/archive/v1.2.0.tar.gz  -o fabric-1.2.0.tar.gz \
-    && tar -zxf fabric-1.2.0.tar.gz \
-    && rm fabric-1.2.0.tar.gz \
-    && mv fabric-1.2.0 fabric \
+    && curl -fsL https://github.com/hyperledger/fabric/archive/v1.2.1.tar.gz  -o fabric-1.2.1.tar.gz \
+    && tar -zxf fabric-1.2.1.tar.gz \
+    && rm fabric-1.2.1.tar.gz \
+    && mv fabric-1.2.1 fabric \
     && cd fabric/peer \
-    && go install \
+    && go install -tags "experimental" -ldflags "$LD_FLAGS" \
     && apk del .build-deps
 
 FROM alpine:3.8
 
 LABEL maintainer="Carlos Remuzzi <carlosremuzzi@gmail.com>"
-LABEL version="1.2.0"
+LABEL version="1.2.1"
 
 ENV FABRIC_CFG_PATH=/etc/hyperledger/fabric
 
