@@ -11,6 +11,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && mv fabric-1.2.1 fabric \
     && cd fabric/peer \
     && go install -tags "experimental" -ldflags "$LD_FLAGS" \
+    && go clean \
     && apk del .build-deps
 
 FROM alpine:3.8
